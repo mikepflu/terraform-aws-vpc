@@ -198,6 +198,56 @@ output "intra_subnets_ipv6_cidr_blocks" {
   value       = aws_subnet.intra.*.ipv6_cidr_block
 }
 
+output "dmz_subnets" {
+  description = "List of IDs of dmz subnets"
+  value       = aws_subnet.dmz.*.id
+}
+
+output "dmz_subnet_arns" {
+  description = "List of ARNs of dmz subnets"
+  value       = aws_subnet.dmz.*.arn
+}
+
+output "dmz_subnets_cidr_blocks" {
+  description = "List of cidr_blocks of dmz subnets"
+  value       = aws_subnet.dmz.*.cidr_block
+}
+
+output "inside_subnets" {
+  description = "List of IDs of inside subnets"
+  value       = aws_subnet.inside.*.id
+}
+
+output "inside_subnet_arns" {
+  description = "List of ARNs of inside subnets"
+  value       = aws_subnet.inside.*.arn
+}
+
+output "inside_subnets_cidr_blocks" {
+  description = "List of cidr_blocks of inside subnets"
+  value       = aws_subnet.inside.*.cidr_block
+}
+
+output "transit_gateway_subnets" {
+  description = "List of IDs of transit_gateway subnets"
+  value       = aws_subnet.transit_gateway.*.id
+}
+
+output "transit_gateway_subnet_arns" {
+  description = "List of ARNs of transit_gateway subnets"
+  value       = aws_subnet.transit_gateway.*.arn
+}
+
+output "transit_gateway_subnets_cidr_blocks" {
+  description = "List of cidr_blocks of transit_gateway subnets"
+  value       = aws_subnet.transit_gateway.*.cidr_block
+}
+
+output "transit_gateway_vpc_attachment_id" {
+  description = "Transit Gateway VPC Attachment ID"
+  value       = concat(aws_ec2_transit_gateway_vpc_attachment.this.*.id, [""])[0]
+}
+
 output "elasticache_subnet_group" {
   description = "ID of elasticache subnet group"
   value       = concat(aws_elasticache_subnet_group.elasticache.*.id, [""])[0]
@@ -236,6 +286,21 @@ output "elasticache_route_table_ids" {
 output "intra_route_table_ids" {
   description = "List of IDs of intra route tables"
   value       = aws_route_table.intra.*.id
+}
+
+output "dmz_route_table_ids" {
+  description = "List of IDs of dmz route tables"
+  value       = aws_route_table.dmz.*.id
+}
+
+output "inside_route_table_ids" {
+  description = "List of IDs of inside route tables"
+  value       = aws_route_table.inside.*.id
+}
+
+output "transit_gateway_route_table_ids" {
+  description = "List of IDs of transit_gateway route tables"
+  value       = aws_route_table.transit_gateway.*.id
 }
 
 output "nat_ids" {
@@ -345,6 +410,21 @@ output "private_network_acl_id" {
 output "intra_network_acl_id" {
   description = "ID of the intra network ACL"
   value       = concat(aws_network_acl.intra.*.id, [""])[0]
+}
+
+output "dmz_network_acl_id" {
+  description = "ID of the dmz network ACL"
+  value       = concat(aws_network_acl.dmz.*.id, [""])[0]
+}
+
+output "transit_gateway_network_acl_id" {
+  description = "ID of the transit_gateway network ACL"
+  value       = concat(aws_network_acl.transit_gateway.*.id, [""])[0]
+}
+
+output "inside_network_acl_id" {
+  description = "ID of the inside network ACL"
+  value       = concat(aws_network_acl.inside.*.id, [""])[0]
 }
 
 output "database_network_acl_id" {

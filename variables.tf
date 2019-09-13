@@ -58,6 +58,24 @@ variable "intra_subnet_ipv6_prefixes" {
   default     = []
 }
 
+variable "dmz_subnet_ipv6_prefixes" {
+  description = "Assigns IPv6 dmz subnet id based on the Amazon provided /56 prefix base 10 integer (0-256). Must be of equal length to the corresponding IPv4 subnet list"
+  type        = list
+  default     = []
+}
+
+variable "inside_subnet_ipv6_prefixes" {
+  description = "Assigns IPv6 inside subnet id based on the Amazon provided /56 prefix base 10 integer (0-256). Must be of equal length to the corresponding IPv4 subnet list"
+  type        = list
+  default     = []
+}
+
+variable "transit_gateway_subnet_ipv6_prefixes" {
+  description = "Assigns IPv6 transit_gateway subnet id based on the Amazon provided /56 prefix base 10 integer (0-256). Must be of equal length to the corresponding IPv4 subnet list"
+  type        = list
+  default     = []
+}
+
 variable "assign_ipv6_address_on_creation" {
   description = "Assign IPv6 address on subnet, must be disabled to change IPv6 CIDRs. This is the IPv6 equivalent of map_public_ip_on_launch"
   type        = bool
@@ -100,6 +118,24 @@ variable "intra_subnet_assign_ipv6_address_on_creation" {
   default     = null
 }
 
+variable "dmz_subnet_assign_ipv6_address_on_creation" {
+  description = "Assign IPv6 address on dmz subnet, must be disabled to change IPv6 CIDRs. This is the IPv6 equivalent of map_public_ip_on_launch"
+  type        = bool
+  default     = null
+}
+
+variable "inside_subnet_assign_ipv6_address_on_creation" {
+  description = "Assign IPv6 address on inside subnet, must be disabled to change IPv6 CIDRs. This is the IPv6 equivalent of map_public_ip_on_launch"
+  type        = bool
+  default     = null
+}
+
+variable "transit_gateway_subnet_assign_ipv6_address_on_creation" {
+  description = "Assign IPv6 address on transit_gateway subnet, must be disabled to change IPv6 CIDRs. This is the IPv6 equivalent of map_public_ip_on_launch"
+  type        = bool
+  default     = null
+}
+
 variable "secondary_cidr_blocks" {
   description = "List of secondary CIDR blocks to associate with the VPC to extend the IP Address pool"
   type        = list(string)
@@ -128,6 +164,30 @@ variable "intra_subnet_suffix" {
   description = "Suffix to append to intra subnets name"
   type        = string
   default     = "intra"
+}
+
+variable "dmz_subnet_suffix" {
+  description = "Suffix to append to dmz subnets name"
+  type        = string
+  default     = "dmz"
+}
+
+variable "inside_subnet_suffix" {
+  description = "Suffix to append to inside subnets name"
+  type        = string
+  default     = "inside"
+}
+
+variable "transit_gateway_id" {
+  description = "Transit gateway ID to connect to"
+  type        = string
+  default     = ""
+}
+
+variable "transit_gateway_subnet_suffix" {
+  description = "Suffix to append to transit gateway subnets name"
+  type        = string
+  default     = "transit_gateway"
 }
 
 variable "database_subnet_suffix" {
@@ -180,6 +240,24 @@ variable "elasticache_subnets" {
 
 variable "intra_subnets" {
   description = "A list of intra subnets"
+  type        = list(string)
+  default     = []
+}
+
+variable "dmz_subnets" {
+  description = "A list of dmz subnets"
+  type        = list(string)
+  default     = []
+}
+
+variable "inside_subnets" {
+  description = "A list of inside subnets"
+  type        = list(string)
+  default     = []
+}
+
+variable "transit_gateway_subnets" {
+  description = "A list of transit gateway subnets"
   type        = list(string)
   default     = []
 }
@@ -1278,6 +1356,24 @@ variable "intra_route_table_tags" {
   default     = {}
 }
 
+variable "dmz_route_table_tags" {
+  description = "Additional tags for the dmz route tables"
+  type        = map(string)
+  default     = {}
+}
+
+variable "inside_route_table_tags" {
+  description = "Additional tags for the inside route tables"
+  type        = map(string)
+  default     = {}
+}
+
+variable "transit_gateway_route_table_tags" {
+  description = "Additional tags for the transit gateway route tables"
+  type        = map(string)
+  default     = {}
+}
+
 variable "database_subnet_tags" {
   description = "Additional tags for the database subnets"
   type        = map(string)
@@ -1314,6 +1410,24 @@ variable "intra_subnet_tags" {
   default     = {}
 }
 
+variable "dmz_subnet_tags" {
+  description = "Additional tags for the dmz subnets"
+  type        = map(string)
+  default     = {}
+}
+
+variable "inside_subnet_tags" {
+  description = "Additional tags for the inside subnets"
+  type        = map(string)
+  default     = {}
+}
+
+variable "transit_gateway_subnet_tags" {
+  description = "Additional tags for the transit gateway subnets"
+  type        = map(string)
+  default     = {}
+}
+
 variable "public_acl_tags" {
   description = "Additional tags for the public subnets network ACL"
   type        = map(string)
@@ -1328,6 +1442,24 @@ variable "private_acl_tags" {
 
 variable "intra_acl_tags" {
   description = "Additional tags for the intra subnets network ACL"
+  type        = map(string)
+  default     = {}
+}
+
+variable "dmz_acl_tags" {
+  description = "Additional tags for the dmz subnets network ACL"
+  type        = map(string)
+  default     = {}
+}
+
+variable "inside_acl_tags" {
+  description = "Additional tags for the inside subnets network ACL"
+  type        = map(string)
+  default     = {}
+}
+
+variable "transit_gateway_acl_tags" {
+  description = "Additional tags for the transit gateway subnets network ACL"
   type        = map(string)
   default     = {}
 }
@@ -1358,6 +1490,12 @@ variable "dhcp_options_tags" {
 
 variable "nat_gateway_tags" {
   description = "Additional tags for the NAT gateways"
+  type        = map(string)
+  default     = {}
+}
+
+variable "transit_gateway_tags" {
+  description = "Additional tags for the Transit gateways"
   type        = map(string)
   default     = {}
 }
@@ -1484,6 +1622,24 @@ variable "private_dedicated_network_acl" {
 
 variable "intra_dedicated_network_acl" {
   description = "Whether to use dedicated network ACL (not default) and custom rules for intra subnets"
+  type        = bool
+  default     = false
+}
+
+variable "dmz_dedicated_network_acl" {
+  description = "Whether to use dedicated network ACL (not default) and custom rules for dmz subnets"
+  type        = bool
+  default     = false
+}
+
+variable "inside_dedicated_network_acl" {
+  description = "Whether to use dedicated network ACL (not default) and custom rules for inside subnets"
+  type        = bool
+  default     = false
+}
+
+variable "transit_gateway_dedicated_network_acl" {
+  description = "Whether to use dedicated network ACL (not default) and custom rules for transit gateway subnets"
   type        = bool
   default     = false
 }
@@ -1634,8 +1790,104 @@ variable "intra_inbound_acl_rules" {
   ]
 }
 
+variable "dmz_inbound_acl_rules" {
+  description = "dmz subnets inbound network ACLs"
+  type        = list(map(string))
+
+  default = [
+    {
+      rule_number = 100
+      rule_action = "allow"
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      cidr_block  = "0.0.0.0/0"
+    },
+  ]
+}
+
+variable "inside_inbound_acl_rules" {
+  description = "inside subnets inbound network ACLs"
+  type        = list(map(string))
+
+  default = [
+    {
+      rule_number = 100
+      rule_action = "allow"
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      cidr_block  = "0.0.0.0/0"
+    },
+  ]
+}
+
+variable "transit_gateway_inbound_acl_rules" {
+  description = "Transit gateway subnets inbound network ACLs"
+  type        = list(map(string))
+
+  default = [
+    {
+      rule_number = 100
+      rule_action = "allow"
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      cidr_block  = "0.0.0.0/0"
+    },
+  ]
+}
+
 variable "intra_outbound_acl_rules" {
   description = "Intra subnets outbound network ACLs"
+  type        = list(map(string))
+
+  default = [
+    {
+      rule_number = 100
+      rule_action = "allow"
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      cidr_block  = "0.0.0.0/0"
+    },
+  ]
+}
+
+variable "dmz_outbound_acl_rules" {
+  description = "dmz subnets outbound network ACLs"
+  type        = list(map(string))
+
+  default = [
+    {
+      rule_number = 100
+      rule_action = "allow"
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      cidr_block  = "0.0.0.0/0"
+    },
+  ]
+}
+
+variable "inside_outbound_acl_rules" {
+  description = "inside subnets outbound network ACLs"
+  type        = list(map(string))
+
+  default = [
+    {
+      rule_number = 100
+      rule_action = "allow"
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      cidr_block  = "0.0.0.0/0"
+    },
+  ]
+}
+
+variable "transit_gateway_outbound_acl_rules" {
+  description = "Transit gateway subnets outbound network ACLs"
   type        = list(map(string))
 
   default = [
