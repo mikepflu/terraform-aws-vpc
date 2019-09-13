@@ -272,6 +272,16 @@ Sometimes it is handy to have public access to Redshift clusters (for example if
 | dhcp\_options\_netbios\_node\_type | Specify netbios node_type for DHCP options set (requires enable_dhcp_options set to true) | string | `""` | no |
 | dhcp\_options\_ntp\_servers | Specify a list of NTP servers for DHCP options set (requires enable_dhcp_options set to true) | list(string) | `[]` | no |
 | dhcp\_options\_tags | Additional tags for the DHCP option set (requires enable_dhcp_options set to true) | map(string) | `{}` | no |
+| dmz\_acl\_tags | Additional tags for the dmz subnets network ACL | map(string) | `{}` | no |
+| dmz\_dedicated\_network\_acl | Whether to use dedicated network ACL (not default) and custom rules for dmz subnets | bool | `"false"` | no |
+| dmz\_inbound\_acl\_rules | dmz subnets inbound network ACLs | list(map(string)) | `[ { "cidr_block": "0.0.0.0/0", "from_port": 0, "protocol": "-1", "rule_action": "allow", "rule_number": 100, "to_port": 0 } ]` | no |
+| dmz\_outbound\_acl\_rules | dmz subnets outbound network ACLs | list(map(string)) | `[ { "cidr_block": "0.0.0.0/0", "from_port": 0, "protocol": "-1", "rule_action": "allow", "rule_number": 100, "to_port": 0 } ]` | no |
+| dmz\_route\_table\_tags | Additional tags for the dmz route tables | map(string) | `{}` | no |
+| dmz\_subnet\_assign\_ipv6\_address\_on\_creation | Assign IPv6 address on dmz subnet, must be disabled to change IPv6 CIDRs. This is the IPv6 equivalent of map_public_ip_on_launch | bool | `"null"` | no |
+| dmz\_subnet\_ipv6\_prefixes | Assigns IPv6 dmz subnet id based on the Amazon provided /56 prefix base 10 integer (0-256). Must be of equal length to the corresponding IPv4 subnet list | list | `[]` | no |
+| dmz\_subnet\_suffix | Suffix to append to dmz subnets name | string | `"dmz"` | no |
+| dmz\_subnet\_tags | Additional tags for the dmz subnets | map(string) | `{}` | no |
+| dmz\_subnets | A list of dmz subnets | list(string) | `[]` | no |
 | ec2\_endpoint\_private\_dns\_enabled | Whether or not to associate a private hosted zone with the specified VPC for EC2 endpoint | bool | `"false"` | no |
 | ec2\_endpoint\_security\_group\_ids | The ID of one or more security groups to associate with the network interface for EC2 endpoint | list(string) | `[]` | no |
 | ec2\_endpoint\_subnet\_ids | The ID of one or more subnets in which to create a network interface for EC2 endpoint. Only a single subnet within an AZ is supported. If omitted, private subnets will be used. | list(string) | `[]` | no |
@@ -365,6 +375,16 @@ Sometimes it is handy to have public access to Redshift clusters (for example if
 | glue\_endpoint\_security\_group\_ids | The ID of one or more security groups to associate with the network interface for Glue endpoint | list(string) | `[]` | no |
 | glue\_endpoint\_subnet\_ids | The ID of one or more subnets in which to create a network interface for Glue endpoint. Only a single subnet within an AZ is supported. If omitted, private subnets will be used. | list(string) | `[]` | no |
 | igw\_tags | Additional tags for the internet gateway | map(string) | `{}` | no |
+| inside\_acl\_tags | Additional tags for the inside subnets network ACL | map(string) | `{}` | no |
+| inside\_dedicated\_network\_acl | Whether to use dedicated network ACL (not default) and custom rules for inside subnets | bool | `"false"` | no |
+| inside\_inbound\_acl\_rules | inside subnets inbound network ACLs | list(map(string)) | `[ { "cidr_block": "0.0.0.0/0", "from_port": 0, "protocol": "-1", "rule_action": "allow", "rule_number": 100, "to_port": 0 } ]` | no |
+| inside\_outbound\_acl\_rules | inside subnets outbound network ACLs | list(map(string)) | `[ { "cidr_block": "0.0.0.0/0", "from_port": 0, "protocol": "-1", "rule_action": "allow", "rule_number": 100, "to_port": 0 } ]` | no |
+| inside\_route\_table\_tags | Additional tags for the inside route tables | map(string) | `{}` | no |
+| inside\_subnet\_assign\_ipv6\_address\_on\_creation | Assign IPv6 address on inside subnet, must be disabled to change IPv6 CIDRs. This is the IPv6 equivalent of map_public_ip_on_launch | bool | `"null"` | no |
+| inside\_subnet\_ipv6\_prefixes | Assigns IPv6 inside subnet id based on the Amazon provided /56 prefix base 10 integer (0-256). Must be of equal length to the corresponding IPv4 subnet list | list | `[]` | no |
+| inside\_subnet\_suffix | Suffix to append to inside subnets name | string | `"inside"` | no |
+| inside\_subnet\_tags | Additional tags for the inside subnets | map(string) | `{}` | no |
+| inside\_subnets | A list of inside subnets | list(string) | `[]` | no |
 | instance\_tenancy | A tenancy option for instances launched into the VPC | string | `"default"` | no |
 | intra\_acl\_tags | Additional tags for the intra subnets network ACL | map(string) | `{}` | no |
 | intra\_dedicated\_network\_acl | Whether to use dedicated network ACL (not default) and custom rules for intra subnets | bool | `"false"` | no |
@@ -475,6 +495,18 @@ Sometimes it is handy to have public access to Redshift clusters (for example if
 | transferserver\_endpoint\_private\_dns\_enabled | Whether or not to associate a private hosted zone with the specified VPC for Transfer Server endpoint | bool | `"false"` | no |
 | transferserver\_endpoint\_security\_group\_ids | The ID of one or more security groups to associate with the network interface for Transfer Server endpoint | list(string) | `[]` | no |
 | transferserver\_endpoint\_subnet\_ids | The ID of one or more subnets in which to create a network interface for Transfer Server endpoint. Only a single subnet within an AZ is supported. If omitted, private subnets will be used. | list(string) | `[]` | no |
+| transit\_gateway\_acl\_tags | Additional tags for the transit gateway subnets network ACL | map(string) | `{}` | no |
+| transit\_gateway\_dedicated\_network\_acl | Whether to use dedicated network ACL (not default) and custom rules for transit gateway subnets | bool | `"false"` | no |
+| transit\_gateway\_id | Transit gateway ID to connect to | string | `""` | no |
+| transit\_gateway\_inbound\_acl\_rules | Transit gateway subnets inbound network ACLs | list(map(string)) | `[ { "cidr_block": "0.0.0.0/0", "from_port": 0, "protocol": "-1", "rule_action": "allow", "rule_number": 100, "to_port": 0 } ]` | no |
+| transit\_gateway\_outbound\_acl\_rules | Transit gateway subnets outbound network ACLs | list(map(string)) | `[ { "cidr_block": "0.0.0.0/0", "from_port": 0, "protocol": "-1", "rule_action": "allow", "rule_number": 100, "to_port": 0 } ]` | no |
+| transit\_gateway\_route\_table\_tags | Additional tags for the transit gateway route tables | map(string) | `{}` | no |
+| transit\_gateway\_subnet\_assign\_ipv6\_address\_on\_creation | Assign IPv6 address on transit_gateway subnet, must be disabled to change IPv6 CIDRs. This is the IPv6 equivalent of map_public_ip_on_launch | bool | `"null"` | no |
+| transit\_gateway\_subnet\_ipv6\_prefixes | Assigns IPv6 transit_gateway subnet id based on the Amazon provided /56 prefix base 10 integer (0-256). Must be of equal length to the corresponding IPv4 subnet list | list | `[]` | no |
+| transit\_gateway\_subnet\_suffix | Suffix to append to transit gateway subnets name | string | `"transit_gateway"` | no |
+| transit\_gateway\_subnet\_tags | Additional tags for the transit gateway subnets | map(string) | `{}` | no |
+| transit\_gateway\_subnets | A list of transit gateway subnets | list(string) | `[]` | no |
+| transit\_gateway\_tags | Additional tags for the Transit gateways | map(string) | `{}` | no |
 | vpc\_endpoint\_tags | Additional tags for the VPC Endpoints | map(string) | `{}` | no |
 | vpc\_tags | Additional tags for the VPC | map(string) | `{}` | no |
 | vpn\_gateway\_id | ID of VPN Gateway to attach to the VPC | string | `""` | no |
@@ -504,6 +536,11 @@ Sometimes it is handy to have public access to Redshift clusters (for example if
 | default\_vpc\_id | The ID of the VPC |
 | default\_vpc\_instance\_tenancy | Tenancy of instances spin up within VPC |
 | default\_vpc\_main\_route\_table\_id | The ID of the main route table associated with this VPC |
+| dmz\_network\_acl\_id | ID of the dmz network ACL |
+| dmz\_route\_table\_ids | List of IDs of dmz route tables |
+| dmz\_subnet\_arns | List of ARNs of dmz subnets |
+| dmz\_subnets | List of IDs of dmz subnets |
+| dmz\_subnets\_cidr\_blocks | List of cidr_blocks of dmz subnets |
 | egress\_only\_internet\_gateway\_id | The ID of the egress only Internet Gateway |
 | elasticache\_network\_acl\_id | ID of the elasticache network ACL |
 | elasticache\_route\_table\_ids | List of IDs of elasticache route tables |
@@ -514,6 +551,11 @@ Sometimes it is handy to have public access to Redshift clusters (for example if
 | elasticache\_subnets\_cidr\_blocks | List of cidr_blocks of elasticache subnets |
 | elasticache\_subnets\_ipv6\_cidr\_blocks | List of IPv6 cidr_blocks of elasticache subnets in an IPv6 enabled VPC |
 | igw\_id | The ID of the Internet Gateway |
+| inside\_network\_acl\_id | ID of the inside network ACL |
+| inside\_route\_table\_ids | List of IDs of inside route tables |
+| inside\_subnet\_arns | List of ARNs of inside subnets |
+| inside\_subnets | List of IDs of inside subnets |
+| inside\_subnets\_cidr\_blocks | List of cidr_blocks of inside subnets |
 | intra\_network\_acl\_id | ID of the intra network ACL |
 | intra\_route\_table\_ids | List of IDs of intra route tables |
 | intra\_subnet\_arns | List of ARNs of intra subnets |
@@ -543,6 +585,12 @@ Sometimes it is handy to have public access to Redshift clusters (for example if
 | redshift\_subnets | List of IDs of redshift subnets |
 | redshift\_subnets\_cidr\_blocks | List of cidr_blocks of redshift subnets |
 | redshift\_subnets\_ipv6\_cidr\_blocks | List of IPv6 cidr_blocks of redshift subnets in an IPv6 enabled VPC |
+| transit\_gateway\_network\_acl\_id | ID of the transit_gateway network ACL |
+| transit\_gateway\_route\_table\_ids | List of IDs of transit_gateway route tables |
+| transit\_gateway\_subnet\_arns | List of ARNs of transit_gateway subnets |
+| transit\_gateway\_subnets | List of IDs of transit_gateway subnets |
+| transit\_gateway\_subnets\_cidr\_blocks | List of cidr_blocks of transit_gateway subnets |
+| transit\_gateway\_vpc\_attachment\_id | Transit Gateway VPC Attachment ID |
 | vgw\_id | The ID of the VPN Gateway |
 | vpc\_arn | The ARN of the VPC |
 | vpc\_cidr\_block | The CIDR block of the VPC |
